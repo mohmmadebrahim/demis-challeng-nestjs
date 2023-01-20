@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { mysqplDBConfigService } from './configs';
-import { NotesModule } from './modules';
+import { mysqplDBConfigService } from './configs/database/typeorm.config.service';
+import { UsersModule } from './modules/users/users.module';
+import { VerificationsCodeModule } from './modules/verificationCods/verificationsCode.module';
 
 @Module({
   imports: [
@@ -13,11 +12,12 @@ import { NotesModule } from './modules';
     }),
     TypeOrmModule.forRootAsync({
       useClass: mysqplDBConfigService,
-      imports : [ConfigModule]
+      imports: [ConfigModule]
     }),
-    NotesModule
+    UsersModule,
+    VerificationsCodeModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }
